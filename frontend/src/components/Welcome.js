@@ -5,7 +5,7 @@ const Welcome = () => {
   const [qrCodeUrl, setQrCodeUrl] = useState('');
   async function fetchdata() {
     let rawdata = await fetch(`http://localhost:5000/api/qr/generateQR`, {
-      method: "POST",
+      method: "GET",
       headers: {
         "auth-token": localStorage.getItem("sync_fusion_token"),
       },
