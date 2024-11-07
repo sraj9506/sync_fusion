@@ -1,23 +1,28 @@
 const multer = require('multer');
 const path = require('path');
 
-const upload = () => {
-    const storage = multer.diskStorage({
-        destination: (cb) => {
-            cb(null, '../uploads/'); // Set the folder where files will be saved
-        },
-        filename: (req, file, cb) => {
-            // Assuming clientId comes from `req.user.name` (e.g., set by an authentication middleware)
-            const { clientId } = req.userId;
-            if (!clientId) {
-                return cb(new Error('clientId is required'));
-            }
-            // Use clientId and file extension to generate the filename
-            cb(null, clientId + path.extname(file.originalname));
-        }
-    });
+// Define the multer storage configuration
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/'); // Set destination folder
+    },
+    filename: function (req, file, cb) {
+        const { clientId } = req.query; // Extract clientId from query parameters
+        cb(null, clientId + path.extname(file.originalname)); // Append clientId to filename
+    }
+});
 
-    return multer({ storage });
+// Create the upload middleware in one function using next()
+const uploadMiddleware = (req, res, next) => {
+    const upload = multer({ storage: storage }).single('file'); // Use .single() for handling single file upload
+    upload(req, res, (err) => {
+        if (err) {
+            // Handle any errors (Multer errors or others)
+            return next(err); // Pass the error to the error-handling middleware
+        }
+        // If no errors, continue to the next middleware or route handler
+        next();
+    });
 };
 
-module.exports = upload;
+module.exports = uploadMiddleware;

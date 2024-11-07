@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useNavigate, useState } from "react-router-dom";
+import React, { useEffect,useState } from 'react';
+import { useNavigate } from "react-router-dom";
 const Welcome = () => {
   const navigate = useNavigate();
   const [qrCodeUrl, setQrCodeUrl] = useState('');
