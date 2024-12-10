@@ -9,9 +9,11 @@ import About from "./components/About";
 import Pricing from "./components/Services";
 import { Contact } from "./components/Contact";
 import Footer from "./components/Footer";
+import { useState } from "react";
 
 
 function App() {
+  const [isAuthorized,setAuthority] = useState(false);
   const appStyle = {
     backgroundColor: 'var(--bg-color)', // Dynamically controlled by CSS variables
     minHeight: '100vh',
@@ -26,8 +28,8 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home/>}></Route>
         <Route exact path="/SyncDevice" element={<SyncDevice/>}></Route>
-        <Route exact path="/Login" element={<Login/>}></Route>
-        <Route exact path="/SignUp" element={<Register/>}></Route>
+        <Route exact path="/Login" element={<Login/>} setAuthority={setAuthority} isAuthorized={isAuthorized}></Route>
+        <Route exact path="/SignUp" element={<Register/>} setAuthority={setAuthority} isAuthorized={isAuthorized}></Route>
         <Route exact path="/About" element={<About/>}></Route>
         <Route exact path="/Services" element={<Pricing/>}></Route>
         <Route exact path="/ContactUs" element={<Contact/>}></Route>

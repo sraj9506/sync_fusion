@@ -1,8 +1,7 @@
 import React from 'react'
-import { useTheme } from "next-themes";
-
+import Call from '@mui/icons-material/Call';
+import EmailIcon from '@mui/icons-material/Email';
 const NewsLatterBox = () => {
-  const { theme } = useTheme();
 
   return (
     <div className="relative z-10 rounded-sm bg-white p-8 shadow-three dark:bg-gray-dark sm:p-11 lg:p-8 xl:p-11">
@@ -14,26 +13,14 @@ const NewsLatterBox = () => {
         massa quis lectus.
       </p>
       <div>
-        <input
-          type="text"
-          name="name"
-          placeholder="Enter your name"
-          className="border-stroke mb-4 w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter your email"
-          className="border-stroke mb-4 w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-        />
-        <input
-          type="submit"
-          value="Subscribe"
-          className="mb-5 flex w-full cursor-pointer items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark"
-        />
-        <p className="text-center text-base leading-relaxed text-body-color dark:text-body-color-dark">
-          No spam guaranteed, So please don’t send any spam mail.
-        </p>
+        <div className='flex mb-6 items-center'>
+        <Call color='primary'></Call>
+        <p className="text-center text-base leading-relaxed text-body-color dark:text-body-color-dark ms-5 tracking-wide 2xl:tracking-widest break-all sm:break-normal">(+91) 8200593142</p>
+        </div>
+        <div className='flex mb-6 items-center'>
+        <EmailIcon color='primary'></EmailIcon>
+        <p className="text-center text-base leading-relaxed text-body-color dark:text-body-color-dark ms-5 tracking-wide 2xl:tracking-widest text-pretty break-all sm:break-normal">suryrajsinhjadeja95@gmail.com</p>
+        </div>
       </div>
 
       <div>
@@ -60,12 +47,12 @@ const NewsLatterBox = () => {
                 gradientUnits="userSpaceOnUse"
               >
                 <stop
-                  stopColor={theme === "light" ? "#4A6CF7" : "#fff"}
+                  stopColor="#fff"
                   stopOpacity="0.62"
                 />
                 <stop
                   offset="1"
-                  stopColor={theme === "light" ? "#4A6CF7" : "#fff"}
+                  stopColor="#fff"
                   stopOpacity="0"
                 />
               </linearGradient>
@@ -96,12 +83,12 @@ const NewsLatterBox = () => {
                 gradientUnits="userSpaceOnUse"
               >
                 <stop
-                  stopColor={theme === "light" ? "#4A6CF7" : "#fff"}
+                  stopColor="#fff"
                   stopOpacity="0.62"
                 />
                 <stop
                   offset="1"
-                  stopColor={theme === "light" ? "#4A6CF7" : "#fff"}
+                  stopColor="#fff"
                   stopOpacity="0"
                 />
               </linearGradient>
@@ -132,12 +119,12 @@ const NewsLatterBox = () => {
                 gradientUnits="userSpaceOnUse"
               >
                 <stop
-                  stopColor={theme === "light" ? "#4A6CF7" : "#fff"}
+                  stopColor="#fff"
                   stopOpacity="0.62"
                 />
                 <stop
                   offset="1"
-                  stopColor={theme === "light" ? "#4A6CF7" : "#fff"}
+                  stopColor="#fff"
                   stopOpacity="0"
                 />
               </linearGradient>
@@ -186,11 +173,11 @@ const NewsLatterBox = () => {
               >
                 <stop
                   offset="0.328125"
-                  stopColor={theme === "light" ? "#4A6CF7" : "#fff"}
+                  stopColor="#fff"
                 />
                 <stop
                   offset="1"
-                  stopColor={theme === "light" ? "#4A6CF7" : "#fff"}
+                  stopColor="#fff"
                   stopOpacity="0"
                 />
               </linearGradient>
@@ -204,11 +191,11 @@ const NewsLatterBox = () => {
               >
                 <stop
                   offset="0.328125"
-                  stopColor={theme === "light" ? "#4A6CF7" : "#fff"}
+                  stopColor="#fff"
                 />
                 <stop
                   offset="1"
-                  stopColor={theme === "light" ? "#4A6CF7" : "#fff"}
+                  stopColor="#fff"
                   stopOpacity="0"
                 />
               </linearGradient>
@@ -222,11 +209,11 @@ const NewsLatterBox = () => {
               >
                 <stop
                   offset="0.328125"
-                  stopColor={theme === "light" ? "#4A6CF7" : "#fff"}
+                  stopColor="#fff"
                 />
                 <stop
                   offset="1"
-                  stopColor={theme === "light" ? "#4A6CF7" : "#fff"}
+                  stopColor="#fff"
                   stopOpacity="0"
                 />
               </linearGradient>
@@ -240,11 +227,11 @@ const NewsLatterBox = () => {
               >
                 <stop
                   offset="0.328125"
-                  stopColor={theme === "light" ? "#4A6CF7" : "#fff"}
+                  stopColor="#fff"
                 />
                 <stop
                   offset="1"
-                  stopColor={theme === "light" ? "#4A6CF7" : "#fff"}
+                  stopColor="#fff"
                   stopOpacity="0"
                 />
               </linearGradient>

@@ -60,13 +60,13 @@ const About = () => {
                 <img
                   src="/images/about/about-intro.svg"
                   alt="About"
-                  fill
+                  
                   className="mx-auto max-w-full drop-shadow-three dark:hidden dark:drop-shadow-none lg:mr-0"
                 />
                 <img
                   src="/images/about/about-intro-dark.svg"
                   alt="About Dark"
-                  fill
+                
                   className="mx-auto hidden max-w-full drop-shadow-three dark:block dark:drop-shadow-none lg:mr-0"
                 />
               </div>

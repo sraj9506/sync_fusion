@@ -2,9 +2,10 @@ import React, { useRef, useState } from 'react';
 import { loginUser } from '../api';
 import { Link, useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Login = ({ isAuthorized, setAuthority }) => {
   const emailRef = useRef("");
   const passRef = useRef("");
+  const [isError, setError] = useState('hidden');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
   const validateEmail = (email) => {
@@ -13,13 +14,14 @@ const Login = () => {
   };
   const handleLogin = async (e) => {
     e.preventDefault();
+    setAuthority(false);
     try {
       if (validateEmail(emailRef.current.value)) {
         const email = emailRef.current.value;
         const password = passRef.current.value;
         const response = await loginUser({ email, password });
-        if(response.status===401)
-        {
+        if (response.status === 401) {
+          setError('flex');
           setMessage("Invalid Credentials !");
           return;
         }
@@ -27,20 +29,27 @@ const Login = () => {
         localStorage.setItem('sync_fusion_token', token);
         navigate('/');
       }
-      else{
+      else {
         setMessage('Please Enter Valid Email Address !');
         return;
       }
     } catch (error) {
-      if(error.message.includes('401'))
-        {
-          setMessage("Invalid Credentials !");
-        }
+      if (error.message.includes('401')) {
+        setMessage("Invalid Credentials !");
+      }
     }
   };
 
   return (
     <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
+      <div className={`w-full absolute flex-wrap justify-center px-2 top-28 ${isError} `}>
+        <div role="alert" className="mb-4 relative flex justify-between p-2 text-sm text-white bg-red-800 rounded-md">
+          <div className='flex flex-wrap items-center mx-2 text-justify'>${message}</div>
+          <button className="flex items-center justify-center transition-all w-8 h-8 rounded-md text-white hover:bg-white/10 active:bg-white/10" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-5 w-5" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+      </div>
       <div className="container">
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4">

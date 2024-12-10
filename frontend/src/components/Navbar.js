@@ -1,6 +1,5 @@
 import React,{useState,useEffect} from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import ThemeToggler from './ThemeToggler';
 const Navbar = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [sticky, setSticky] = useState(false);
@@ -184,9 +183,6 @@ const Navbar = () => {
                   </>
                 )
               )}
-              <div>
-                <ThemeToggler />
-              </div>
             </div>
           </div>
         </div>
