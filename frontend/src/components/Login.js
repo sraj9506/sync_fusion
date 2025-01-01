@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState ,useEffect} from 'react';
 import { loginUser } from '../api';
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -7,6 +7,8 @@ const Login = ({ isAuthorized, setAuthority }) => {
   const passRef = useRef("");
   const [isError, setError] = useState('hidden');
   const [message, setMessage] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [isAuthenticated,setAuthentication] = useState(false);
   const navigate = useNavigate();
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex
@@ -15,44 +17,71 @@ const Login = ({ isAuthorized, setAuthority }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setAuthority(false);
+    if (!validateEmail(emailRef.current.value)) {
+      setError('flex');
+      setMessage('Please Enter Valid Email Address !');
+      return;
+    }
     try {
-      if (validateEmail(emailRef.current.value)) {
-        const email = emailRef.current.value;
-        const password = passRef.current.value;
-        const response = await loginUser({ email, password });
-        if (response.status === 401) {
-          setError('flex');
-          setMessage("Invalid Credentials !");
-          return;
+      const email = emailRef.current.value;
+      const password = passRef.current.value;
+      const response = await loginUser({ email, password });
+      const { token } = response.data;
+      if (response.status===200) {
+        window.scrollTo(0, 0);
+        setAuthentication(true);
+        setSuccess(true);
+        setError('flex');
+        if(!token)
+        {
+          setAuthority(true);
+          setMessage("Proceed Further For Verification ...");
         }
-        const { token } = response.data;
-        localStorage.setItem('sync_fusion_token', token);
-        navigate('/');
-      }
-      else {
-        setMessage('Please Enter Valid Email Address !');
-        return;
+        else
+        {
+          localStorage.setItem('sync_fusion_token', token);
+          setMessage("Successfully Logged In ! Redirecting to Dashboard ...");
+        }
       }
     } catch (error) {
       if (error.message.includes('401')) {
+        window.scrollTo(0, 0);
+        setError('flex');
         setMessage("Invalid Credentials !");
-      }
+        return;
+      } 
     }
   };
+    useEffect(() => {
+      if (isAuthenticated) {
+        setTimeout(() => {
+          if(isAuthorized)
+          {
+            setAuthority(false);
+            navigate('/Verification');
+          }
+          else
+          {
+            setAuthentication(false);
+            navigate('/');
+          }
+        }, 3000);
+      }
+    }, [isAuthenticated]);
 
   return (
     <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
       <div className={`w-full absolute flex-wrap justify-center px-2 top-28 ${isError} `}>
-        <div role="alert" className="mb-4 relative flex justify-between p-2 text-sm text-white bg-red-800 rounded-md">
-          <div className='flex flex-wrap items-center mx-2 text-justify'>${message}</div>
-          <button className="flex items-center justify-center transition-all w-8 h-8 rounded-md text-white hover:bg-white/10 active:bg-white/10" type="button">
+        <div role="alert" className={`mb-4 relative flex justify-between p-2 text-sm text-white ${success ? "bg-green-800" : "bg-red-800"} rounded-md`}>
+          <div className='flex flex-wrap items-center mx-2 text-justify'> {message}</div>
+          {!success && <button className="flex items-center justify-center transition-all w-8 h-8 rounded-md text-white hover:bg-white/10 active:bg-white/10" type="button" onClick={() => setError('hidden')} >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-5 w-5" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
-          </button>
+          </button>}
         </div>
       </div>
       <div className="container">
         <div className="-mx-4 flex flex-wrap">
-          <div className="w-full px-4">
+          <div className="w-full px-4"> 
             <div className="shadow-three mx-auto max-w-[500px] rounded bg-white px-6 py-10 dark:bg-dark sm:p-[60px]">
               <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">
                 Sign in to your account
@@ -105,7 +134,6 @@ const Login = ({ isAuthorized, setAuthority }) => {
                 </p>
                 <span className="hidden h-[1px] w-full max-w-[70px] bg-body-color/50 sm:block"></span>
               </div>
-              {message && <p className="text-red-500 mb-8 text-center">{message}</p>}
               <form onSubmit={handleLogin}>
                 <div className="mb-8">
                   <label

@@ -20,7 +20,7 @@ exports.bypassVerification = async (req, res) => {
 
     await page.locator("#continue-btn").click();
 
-    const data = 8;
+    const data = 0;
 
     const captcha = page.locator("canvas");
 
@@ -30,7 +30,7 @@ exports.bypassVerification = async (req, res) => {
       quality: 100,
     });
 
-    processImage('element-screenshot.jpg');
+    //processImage('element-screenshot.jpg');
 
     const captchaCoordinates = await captcha.boundingBox();
 
@@ -48,6 +48,8 @@ exports.bypassVerification = async (req, res) => {
     await page.mouse.click(captchaX, captchaY);
 
     await page.waitForTimeout(2000);
+
+    await page.pause();
 
     // Close the browser
     await browser.close();
