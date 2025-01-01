@@ -10,6 +10,7 @@ import Pricing from "./components/Services";
 import { Contact } from "./components/Contact";
 import Footer from "./components/Footer";
 import { useState } from "react";
+import TempData from "./components/TempData";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route exact path="/About" element={<About/>}></Route>
         <Route exact path="/Services" element={<Pricing/>}></Route>
         <Route exact path="/ContactUs" element={<Contact/>}></Route>
+        <Route exact path="/TempData" element={<TempData/>}></Route>
       </Routes>
     <Footer/>
     </div>
