@@ -28,6 +28,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route exact path="/" element={<Home />} />
+            
             <Route exact path="/SyncDevice" element={<SyncDevice />} />
             <Route exact path="/Login" element={<Login  isAuthorized={isAuthorized} setAuthority={setAuthority} />} />
             <Route exact path="/SignUp" element={<Register  isAuthorized={isAuthorized} setAuthority={setAuthority} />} />

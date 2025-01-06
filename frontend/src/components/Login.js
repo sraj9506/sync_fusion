@@ -39,7 +39,6 @@ const Login = ({ isAuthorized, setAuthority }) => {
         }
         else
         {
-          localStorage.setItem('sync_fusion_token', token);
           setMessage("Successfully Logged In ! Redirecting to Dashboard ...");
         }
       }
@@ -63,7 +62,7 @@ const Login = ({ isAuthorized, setAuthority }) => {
           else
           {
             setAuthentication(false);
-            navigate('/');
+            navigate('/Dashboard');
           }
         }, 3000);
       }
