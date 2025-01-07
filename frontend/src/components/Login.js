@@ -2,13 +2,12 @@ import React, { useRef, useState ,useEffect} from 'react';
 import { loginUser } from '../api';
 import { Link, useNavigate } from 'react-router-dom'
 
-const Login = ({ isAuthorized, setAuthority }) => {
+const Login = ({ isAuthorized, setAuthority , isAuthenticated , setAuthentication }) => {
   const emailRef = useRef("");
   const passRef = useRef("");
   const [isError, setError] = useState('hidden');
   const [message, setMessage] = useState('');
   const [success, setSuccess] = useState(false);
-  const [isAuthenticated,setAuthentication] = useState(false);
   const navigate = useNavigate();
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex

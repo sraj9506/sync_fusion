@@ -49,7 +49,7 @@ exports.login = async (req, res) => {
         secure: false,
         path: '/',
       });
-      res.status(200).json({ isVerified: true });
+      res.status(200).end();
     } else {
       res.status(401).end();
     }
@@ -91,5 +91,41 @@ exports.otpGen = async (req, res) => {
   }
   catch (error) {
     res.status(500).end();
+  }
+};
+
+exports.matchOtp = async (req, res) => {
+  const { otp  } = req.body;
+  const {userId,pageType} = req;
+
+  try {
+    // Find the user by ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'Invalid user' });
+    }
+
+    // Check if OTP matches
+    if (user.otp !== otp) {
+      return res.status(400).json({ message: 'Invalid OTP' });
+    }
+
+    if (Date.now() > user.otpExpiry) {
+      return res.status(410).json({ message: 'OTP expired' });
+    }
+
+   // OTP is valid and not expired, proceed with successful verification
+   user.otp = null; // Clear OTP after successful verification
+   user.isVerified=true;
+   user.otpExpiration = null;
+   await user.save();
+
+   if(pageType === "RegLog")
+     res.status(200).json({auth : true});
+   else
+   res.status(200).json({auth : false});
+  
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
   }
 };

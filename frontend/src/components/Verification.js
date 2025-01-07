@@ -2,7 +2,7 @@ import React, { useEffect, useState} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 axios.defaults.withCredentials = true; 
-const Verification = () => {
+const Verification = ({isAuthenticated, setAuthentication}) => {
   
     const [otpExpiry, setOtpExpiry] = useState(30000);
     const [timeLeft, setTimeLeft] = useState(30);

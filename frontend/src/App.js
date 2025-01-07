@@ -15,6 +15,7 @@ import Verification from "./components/Verification";
 
 function App() {
   const [isAuthorized, setAuthority] = useState(false);
+   const [isAuthenticated,setAuthentication] = useState(false);
   const appStyle = {
     backgroundColor: 'var(--bg-color)', // Dynamically controlled by CSS variables
     minHeight: '100vh',
@@ -30,12 +31,12 @@ function App() {
             <Route exact path="/" element={<Home />} />
             
             <Route exact path="/SyncDevice" element={<SyncDevice />} />
-            <Route exact path="/Login" element={<Login  isAuthorized={isAuthorized} setAuthority={setAuthority} />} />
+            <Route exact path="/Login" element={<Login  isAuthorized={isAuthorized} setAuthority={setAuthority} isAuthenticated={isAuthenticated} setAuthentication={setAuthentication} />} />
             <Route exact path="/SignUp" element={<Register  isAuthorized={isAuthorized} setAuthority={setAuthority} />} />
             <Route exact path="/About" element={<About />} />
             <Route exact path="/Services" element={<Pricing />} />
             <Route exact path="/ContactUs" element={<Contact />} />
-            <Route exact path="/Verification" element={<Verification />} />
+            <Route exact path="/Verification" element={<Verification isAuthenticated={isAuthenticated} setAuthentication={setAuthentication}/>} />
           </Routes>
 
           <Footer />
